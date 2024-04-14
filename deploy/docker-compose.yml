@@ -1,0 +1,17 @@
+services:
+  freegpt35:
+    image: hominsu/freegpt35:latest
+    container_name: freegpt35
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+    ports:
+      - "3000:3000"
+    networks:
+      net:
+        aliases:
+          - freegpt35
+
+networks:
+  net:
+    driver: bridge
