@@ -2,20 +2,20 @@ import { getEnvBoolean, getEnvNumber, getEnvString } from '@/lib/env'
 
 export const siteConfig = {
   server: {
-    port: getEnvNumber('PORT', 3000),
-    baseUrl: getEnvString('BASE_URL', 'https://chat.openai.com'),
-    apiUrl: getEnvString('API_URL', '/backend-anon/conversation'),
-    refreshInterval: getEnvNumber('REFRESH_INTERVAL', 60000),
-    errorWait: getEnvNumber('ErrorWait', 120000),
+    port: getEnvNumber('NEXT_PORT', 3000),
+    baseUrl: getEnvString('NEXT_BASE_URL', 'https://chat.openai.com'),
+    apiUrl: getEnvString('NEXT_API_URL', '/backend-anon/conversation'),
+    refreshInterval: getEnvNumber('NEXT_REFRESH_INTERVAL', 60000),
+    errorWait: getEnvNumber('NEXT_ERROR_WAIT', 120000),
   },
   proxy: {
-    enable: getEnvBoolean('PROXY_ENABLE', false),
-    protocol: getEnvString('PROXY_PROTOCOL', 'socks5'),
-    host: getEnvString('PROXY_HOST', '127.0.0.1'),
-    port: getEnvNumber('PROXY_PORT', 7890),
-    auth: getEnvBoolean('PROXY_AUTH', false),
-    username: getEnvString('PROXY_USERNAME', ''),
-    password: getEnvString('PROXY_PASSWORD', ''),
+    enable: getEnvBoolean('NEXT_PROXY_ENABLE', false),
+    protocol: getEnvString('NEXT_PROXY_PROTOCOL', 'socks5'),
+    host: getEnvString('NEXT_PROXY_HOST', '127.0.0.1'),
+    port: getEnvNumber('NEXT_PROXY_PORT', 7890),
+    auth: getEnvBoolean('NEXT_PROXY_AUTH', false),
+    username: getEnvString('NEXT_PROXY_USERNAME', ''),
+    password: getEnvString('NEXT_PROXY_PASSWORD', ''),
   },
 }
 
