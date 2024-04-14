@@ -1,0 +1,80 @@
+name: Docker Deploy
+
+on:
+  push:
+    tags: [ 'v*.*.*' ]
+
+jobs:
+  set-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      git_tag: ${{ steps.git_info.outputs.tag }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - id: set-matrix
+        run: |
+          JSON=$(cat .github/workflows/registry.json | tr '\n' ' ' | sed 's/ //g')
+          echo "::set-output name=matrix::$JSON"
+
+      - id: git_info
+        run: |
+          tag=$(echo ${{ github.ref }} | rev | cut -d/ -f1 | rev)
+          echo "::set-output name=tag::$tag"
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: [ set-matrix ]
+    strategy:
+      matrix:
+        registry: ${{fromJSON(needs.set-matrix.outputs.matrix)}}
+
+    env:
+      id: ${{ secrets[matrix.registry.id] }}
+      token: ${{ secrets[matrix.registry.token] }}
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log into Registry ${{ matrix.registry.name }}
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ matrix.registry.registry }}
+          username: ${{ env.id }}
+          password: ${{ env.token }}
+
+      - name: Set Up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set Up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+
+      - name: Build and Push ${{ matrix.registry.name }}
+        run: >
+          REPO=${{ matrix.registry.push_link }}
+          VERSION=${{ needs.set-matrix.outputs.git_tag }}
+          NEXT_PORT=${{ secrets.NEXT_PORT }}
+          NEXT_BASE_URL=${{ secrets.NEXT_BASE_URL }}
+          NEXT_API_URL=${{ secrets.NEXT_API_URL }}
+          NEXT_REFRESH_INTERVAL=${{ secrets.NEXT_REFRESH_INTERVAL }}
+          NEXT_ERROR_WAIT=${{ secrets.NEXT_ERROR_WAIT }}
+          NEXT_PROXY_ENABLE=${{ secrets.NEXT_PROXY_ENABLE }}
+          NEXT_PROXY_PROTOCOL=${{ secrets.NEXT_PROXY_PROTOCOL }}
+          NEXT_PROXY_HOST=${{ secrets.NEXT_PROXY_HOST }}
+          NEXT_PROXY_PORT=${{ secrets.NEXT_PROXY_PORT }}
+          NEXT_PROXY_AUTH=${{ secrets.NEXT_PROXY_AUTH }}
+          NEXT_PROXY_USERNAME=${{ secrets.NEXT_PROXY_USERNAME }}
+          NEXT_PROXY_PASSWORD=${{ secrets.NEXT_PROXY_PASSWORD }}
+          docker buildx bake --file deploy/docker-bake.hcl --push

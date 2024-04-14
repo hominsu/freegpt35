@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Docker",
+    "registry": "",
+    "push_link": "hominsu",
+    "id": "DOCKER_ID",
+    "token": "DOCKER_TOKEN"
+  }
+]
