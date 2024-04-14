@@ -1,0 +1,38 @@
+{
+  "name": "freegpt35",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "analyze": "cross-env ANALYZE=true next build",
+    "lint": "next lint --dir app --dir config --dir lib --dir pages",
+    "lint:fix": "next lint --fix --dir app --dir config --dir lib --dir pages",
+    "format:check": "prettier --check --ignore-path .prettierignore .",
+    "format:write": "prettier --write --ignore-path .prettierignore ."
+  },
+  "dependencies": {
+    "@next/bundle-analyzer": "^14.2.1",
+    "axios": "^1.6.8",
+    "cron": "^3.1.7",
+    "gpt-3-encoder": "^1.1.4",
+    "next": "14.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5",
+    "typescript": "^5"
+  },
+  "packageManager": "yarn@4.1.1"
+}
