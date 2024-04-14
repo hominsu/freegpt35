@@ -2,7 +2,7 @@ import { getEnvBoolean, getEnvNumber, getEnvString } from '@/lib/env'
 
 export const siteConfig = {
   server: {
-    port: getEnvNumber('PORT', 3040),
+    port: getEnvNumber('PORT', 3000),
     baseUrl: getEnvString('BASE_URL', 'https://chat.openai.com'),
     apiUrl: getEnvString('API_URL', '/backend-anon/conversation'),
     refreshInterval: getEnvNumber('REFRESH_INTERVAL', 60000),
