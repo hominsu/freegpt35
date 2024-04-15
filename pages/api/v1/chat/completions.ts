@@ -1,5 +1,6 @@
 import * as url from 'url'
 import { NextApiRequest, NextApiResponse } from 'next'
+import Cors from 'cors'
 import { encode } from 'gpt-3-encoder'
 
 import { siteConfig } from '@/config/site'
@@ -14,7 +15,27 @@ import {
   streamCompletion,
 } from '@/lib/utils'
 
+const cors = Cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: '*',
+  optionsSuccessStatus: 200,
+})
+
+function corsMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result: any) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+      return resolve(result)
+    })
+  })
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await corsMiddleware(req, res, cors)
+
   if (req.method !== 'POST') {
     handleMethodNotAllowed(res)
     return
@@ -51,7 +72,7 @@ async function processStream(req: NextApiRequest, res: NextApiResponse, data: an
   let fullContent = ''
   let completionTokens = 0
   const requestId = GenerateCompletionId('chatcmpl-')
-  const created = Date.now()
+  const created = Math.floor(Date.now() / 1000)
 
   for await (const message of streamCompletion(data)) {
     if (message.match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{6}$/)) continue
