@@ -65,11 +65,9 @@ jobs:
         run: >
           REPO=${{ matrix.registry.push_link }}
           VERSION=${{ needs.set-matrix.outputs.git_tag }}
-          NEXT_PORT=${{ secrets.NEXT_PORT }}
           NEXT_BASE_URL=${{ secrets.NEXT_BASE_URL }}
           NEXT_API_URL=${{ secrets.NEXT_API_URL }}
-          NEXT_REFRESH_INTERVAL=${{ secrets.NEXT_REFRESH_INTERVAL }}
-          NEXT_ERROR_WAIT=${{ secrets.NEXT_ERROR_WAIT }}
+          NEXT_CRON=${{ secrets.NEXT_CRON }}
           NEXT_PROXY_ENABLE=${{ secrets.NEXT_PROXY_ENABLE }}
           NEXT_PROXY_PROTOCOL=${{ secrets.NEXT_PROXY_PROTOCOL }}
           NEXT_PROXY_HOST=${{ secrets.NEXT_PROXY_HOST }}
