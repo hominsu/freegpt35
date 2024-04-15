@@ -14,19 +14,21 @@ export async function scheduler() {
 
     const axiosInstance = axios.create({
       httpsAgent: new Agent({ rejectUnauthorized: false }),
-      proxy: siteConfig.proxy.enable
-        ? {
-            protocol: siteConfig.proxy.protocol,
-            host: siteConfig.proxy.host,
-            port: siteConfig.proxy.port,
-            auth: siteConfig.proxy.auth
-              ? {
-                  username: siteConfig.proxy.username,
-                  password: siteConfig.proxy.password,
-                }
-              : undefined,
-          }
-        : false,
+      proxy:
+        siteConfig.proxy.enable === 'true'
+          ? {
+              protocol: siteConfig.proxy.protocol,
+              host: siteConfig.proxy.host,
+              port: Number(siteConfig.proxy.port),
+              auth:
+                siteConfig.proxy.auth === 'true'
+                  ? {
+                      username: siteConfig.proxy.username,
+                      password: siteConfig.proxy.password,
+                    }
+                  : undefined,
+            }
+          : false,
       headers: {
         accept: '*/*',
         'accept-language': 'en-US,en;q=0.9',
@@ -51,29 +53,33 @@ export async function scheduler() {
       const { randomUUID } = await import('crypto')
       const deviceId = randomUUID()
 
-      try {
-        const resp = await axiosInstance.post<SessionResponse>(
+      axiosInstance
+        .post<SessionResponse>(
           `${siteConfig.server.baseUrl}/backend-anon/sentinel/chat-requirements`,
           {},
-          {
-            headers: { 'oai-device-id': deviceId },
+          { headers: { 'oai-device-id': deviceId } }
+        )
+        .then((resp) => {
+          const globals = GlobalsVars.getInstance()
+          globals.oaiDeviceId = deviceId
+          globals.token = resp.data.token
+
+          console.log(
+            `System: Successfully refreshed session ID and token. ${!resp.data.token ? "(Now it's ready to process requests)" : ''}`
+          )
+        })
+        .catch((err) => {
+          if (err.response) {
+            console.error(
+              `Error refreshing session ID and token: ${err.response.status}, ${err.response.statusText}`
+            )
+          } else {
+            console.error(`Error refreshing session ID and token: ${err}`)
           }
-        )
-
-        const globals = GlobalsVars.getInstance()
-        globals.oaiDeviceId = deviceId
-        globals.token = resp.data.token
-
-        console.log(
-          `System: Successfully refreshed session ID and token. ${!resp.data.token ? "(Now it's ready to process requests)" : ''}`
-        )
-      } catch (error: any) {
-        console.error(
-          `Error refreshing session ID and token: ${error.response.status}, ${error.response.statusText}`
-        )
-      }
+        })
     }
 
+    await refreshSession()
     const { CronJob } = await import('cron')
     const job = new CronJob(siteConfig.server.cron, refreshSession)
     job.start()

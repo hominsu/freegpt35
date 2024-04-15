@@ -5,19 +5,21 @@ import { siteConfig } from '@/config/site'
 
 const axiosInstance = axios.create({
   httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-  proxy: siteConfig.proxy.enable
-    ? {
-        protocol: siteConfig.proxy.protocol,
-        host: siteConfig.proxy.host,
-        port: siteConfig.proxy.port,
-        auth: siteConfig.proxy.auth
-          ? {
-              username: siteConfig.proxy.username,
-              password: siteConfig.proxy.password,
-            }
-          : undefined,
-      }
-    : false,
+  proxy:
+    siteConfig.proxy.enable === 'true'
+      ? {
+          protocol: siteConfig.proxy.protocol,
+          host: siteConfig.proxy.host,
+          port: Number(siteConfig.proxy.port),
+          auth:
+            siteConfig.proxy.auth === 'true'
+              ? {
+                  username: siteConfig.proxy.username,
+                  password: siteConfig.proxy.password,
+                }
+              : undefined,
+        }
+      : false,
   headers: {
     accept: '*/*',
     'accept-language': 'en-US,en;q=0.9',

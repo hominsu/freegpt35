@@ -29,24 +29,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const body = createBody(messages)
   setupResponseHeader(res, !!req.body.stream)
 
-  try {
-    const chatResponse = await axiosInstance.post(
-      url.resolve(siteConfig.server.baseUrl, siteConfig.server.apiUrl),
-      body,
-      {
-        responseType: 'stream',
-        headers: {
-          'oai-device-id': GlobalsVars.getInstance().oaiDeviceId,
-          'openai-sentinel-chat-requirements-token': GlobalsVars.getInstance().token,
-        },
-      }
-    )
-
-    await processStream(req, res, chatResponse.data)
-  } catch (error: any) {
-    if (!res.headersSent) res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify({ status: false, error }))
-  }
+  axiosInstance
+    .post(url.resolve(siteConfig.server.baseUrl, siteConfig.server.apiUrl), body, {
+      responseType: 'stream',
+      headers: {
+        'oai-device-id': GlobalsVars.getInstance().oaiDeviceId,
+        'openai-sentinel-chat-requirements-token': GlobalsVars.getInstance().token,
+      },
+    })
+    .then((resp) => {
+      processStream(req, res, resp.data)
+    })
+    .catch((err) => {
+      if (!res.headersSent) res.setHeader('Content-Type', 'application/json')
+      res.end(JSON.stringify({ status: false, err }))
+    })
 }
 
 async function processStream(req: NextApiRequest, res: NextApiResponse, data: any) {
