@@ -1,5 +1,5 @@
 import { scheduler } from '@/cron/session'
 
-export function register() {
-  scheduler()
+export async function register() {
+  await scheduler()
 }
