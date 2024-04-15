@@ -29,16 +29,16 @@ target "freegpt35" {
     VERSION           = "$(VERSION)"
   }
   secret = [
-    "type=env,id=NEXT_BASE_URL",
-    "type=env,id=NEXT_API_URL",
-    "type=env,id=NEXT_CRON",
-    "type=env,id=NEXT_PROXY_ENABLE",
-    "type=env,id=NEXT_PROXY_PROTOCOL",
-    "type=env,id=NEXT_PROXY_HOST",
-    "type=env,id=NEXT_PROXY_PORT",
-    "type=env,id=NEXT_PROXY_AUTH",
-    "type=env,id=NEXT_PROXY_USERNAME",
-    "type=env,id=NEXT_PROXY_PASSWORD",
+    "type=env,id=NEXT_PUBLIC_BASE_URL",
+    "type=env,id=NEXT_PUBLIC_API_URL",
+    "type=env,id=NEXT_PUBLIC_CRON",
+    "type=env,id=NEXT_PUBLIC_PROXY_ENABLE",
+    "type=env,id=NEXT_PUBLIC_PROXY_PROTOCOL",
+    "type=env,id=NEXT_PUBLIC_PROXY_HOST",
+    "type=env,id=NEXT_PUBLIC_PROXY_PORT",
+    "type=env,id=NEXT_PUBLIC_PROXY_AUTH",
+    "type=env,id=NEXT_PUBLIC_PROXY_USERNAME",
+    "type=env,id=NEXT_PUBLIC_PROXY_PASSWORD",
   ]
   tags = [
     notequal("", VERSION) ? "${REPO}/freegpt35:${VERSION}" : "",

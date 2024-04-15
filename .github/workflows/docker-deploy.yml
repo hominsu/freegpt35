@@ -65,14 +65,14 @@ jobs:
         run: >
           REPO=${{ matrix.registry.push_link }}
           VERSION=${{ needs.set-matrix.outputs.git_tag }}
-          NEXT_BASE_URL=${{ secrets.NEXT_BASE_URL }}
-          NEXT_API_URL=${{ secrets.NEXT_API_URL }}
-          NEXT_CRON=${{ secrets.NEXT_CRON }}
-          NEXT_PROXY_ENABLE=${{ secrets.NEXT_PROXY_ENABLE }}
-          NEXT_PROXY_PROTOCOL=${{ secrets.NEXT_PROXY_PROTOCOL }}
-          NEXT_PROXY_HOST=${{ secrets.NEXT_PROXY_HOST }}
-          NEXT_PROXY_PORT=${{ secrets.NEXT_PROXY_PORT }}
-          NEXT_PROXY_AUTH=${{ secrets.NEXT_PROXY_AUTH }}
-          NEXT_PROXY_USERNAME=${{ secrets.NEXT_PROXY_USERNAME }}
-          NEXT_PROXY_PASSWORD=${{ secrets.NEXT_PROXY_PASSWORD }}
+          NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_CRON=${{ secrets.NEXT_PUBLIC_CRON }}
+          NEXT_PUBLIC_PROXY_ENABLE=${{ secrets.NEXT_PUBLIC_PROXY_ENABLE }}
+          NEXT_PUBLIC_PROXY_PROTOCOL=${{ secrets.NEXT_PUBLIC_PROXY_PROTOCOL }}
+          NEXT_PUBLIC_PROXY_HOST=${{ secrets.NEXT_PUBLIC_PROXY_HOST }}
+          NEXT_PUBLIC_PROXY_PORT=${{ secrets.NEXT_PUBLIC_PROXY_PORT }}
+          NEXT_PUBLIC_PROXY_AUTH=${{ secrets.NEXT_PUBLIC_PROXY_AUTH }}
+          NEXT_PUBLIC_PROXY_USERNAME=${{ secrets.NEXT_PUBLIC_PROXY_USERNAME }}
+          NEXT_PUBLIC_PROXY_PASSWORD=${{ secrets.NEXT_PUBLIC_PROXY_PASSWORD }}
           docker buildx bake --file deploy/docker-bake.hcl --push
