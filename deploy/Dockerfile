@@ -21,11 +21,9 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN --mount=type=secret,id=NEXT_PORT \
-    --mount=type=secret,id=NEXT_BASE_URL \
+RUN --mount=type=secret,id=NEXT_BASE_URL \
     --mount=type=secret,id=NEXT_API_URL \
-    --mount=type=secret,id=NEXT_REFRESH_INTERVAL \
-    --mount=type=secret,id=NEXT_ERROR_WAIT \
+    --mount=type=secret,id=NEXT_CRON \
     --mount=type=secret,id=NEXT_PROXY_ENABLE \
     --mount=type=secret,id=NEXT_PROXY_PROTOCOL \
     --mount=type=secret,id=NEXT_PROXY_HOST \
@@ -33,11 +31,9 @@ RUN --mount=type=secret,id=NEXT_PORT \
     --mount=type=secret,id=NEXT_PROXY_AUTH \
     --mount=type=secret,id=NEXT_PROXY_USERNAME \
     --mount=type=secret,id=NEXT_PROXY_PASSWORD \
-    NEXT_PORT=$(cat /run/secrets/NEXT_PORT) \
     NEXT_BASE_URL=$(cat /run/secrets/NEXT_BASE_URL) \
     NEXT_API_URL=$(cat /run/secrets/NEXT_API_URL) \
-    NEXT_REFRESH_INTERVAL=$(cat /run/secrets/NEXT_REFRESH_INTERVAL) \
-    NEXT_ERROR_WAIT=$(cat /run/secrets/NEXT_ERROR_WAIT) \
+    NEXT_CRON=$(cat /run/secrets/NEXT_CRON) \
     NEXT_PROXY_ENABLE=$(cat /run/secrets/NEXT_PROXY_ENABLE) \
     NEXT_PROXY_PROTOCOL=$(cat /run/secrets/NEXT_PROXY_PROTOCOL) \
     NEXT_PROXY_HOST=$(cat /run/secrets/NEXT_PROXY_HOST) \

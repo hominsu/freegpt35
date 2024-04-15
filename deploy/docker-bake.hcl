@@ -29,11 +29,9 @@ target "freegpt35" {
     VERSION           = "$(VERSION)"
   }
   secret = [
-    "type=env,id=NEXT_PORT",
     "type=env,id=NEXT_BASE_URL",
     "type=env,id=NEXT_API_URL",
-    "type=env,id=NEXT_REFRESH_INTERVAL",
-    "type=env,id=NEXT_ERROR_WAIT",
+    "type=env,id=NEXT_CRON",
     "type=env,id=NEXT_PROXY_ENABLE",
     "type=env,id=NEXT_PROXY_PROTOCOL",
     "type=env,id=NEXT_PROXY_HOST",
