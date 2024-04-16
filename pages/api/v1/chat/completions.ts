@@ -1,11 +1,11 @@
 import * as url from 'url'
 import { NextApiRequest, NextApiResponse } from 'next'
-import Cors from 'cors'
 import { encode } from 'gpt-3-encoder'
 
 import { siteConfig } from '@/config/site'
 import axiosInstance from '@/lib/axios'
 import { createBody } from '@/lib/body'
+import { cors, corsMiddleware } from '@/lib/cors'
 import { GlobalsVars } from '@/lib/globals'
 import {
   GenerateCompletionId,
@@ -14,24 +14,6 @@ import {
   setupResponseHeader,
   streamCompletion,
 } from '@/lib/utils'
-
-const cors = Cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: '*',
-  optionsSuccessStatus: 200,
-})
-
-function corsMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-      return resolve(result)
-    })
-  })
-}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await corsMiddleware(req, res, cors)
