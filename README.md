@@ -58,6 +58,59 @@ curl -X POST "http://localhost:3000/v1/chat/completions" \
          }'
 ```
 
+### Nginx Template
+
+Note that the token refresh api is exposed (`/api/refersh`), so it is necessary to use nginx to "hide" it. Here is an nginx conf template that you can refer to.
+
+```nginx
+upstream freegpt35 {
+    server 127.0.0.1:3000
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name your.domain.name;
+
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name your.domain.name;
+
+    ssl_certificate /etc/nginx/ssl/your.domain.name/full.pem;
+    ssl_certificate_key /etc/nginx/ssl/your.domain.name/key.pem;
+
+    ssl_session_timeout 5m;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers TLS13_AES_128_GCM_SHA256:TLS13_AES_256_GCM_SHA384:TLS13_CHACHA20_POLY1305_SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305;
+    ssl_prefer_server_ciphers on;
+
+    location /v1/chat/completions {
+       proxy_set_header Host $host;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Proto "https";
+       proxy_pass http://freegpt35;
+
+       proxy_buffering  off;
+       proxy_cache      off;
+
+       send_timeout               600;
+       proxy_connect_timeout      600;
+       proxy_send_timeout         600;
+       proxy_read_timeout         600;
+       chunked_transfer_encoding  on;
+    }
+    error_page   500 502 503 504  /50x.html;
+}
+```
+
 ## Building
 
 If your country/region can not access ChatGPT, you might need a proxy. In this case, you need to build your own docker image (Next.JS replace the env in build stage).
