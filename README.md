@@ -15,7 +15,7 @@
   <p align="center">
     Unlimited free GPT-3.5 turbo API service.
     <br/>
-    <a href="https://homing.so"><strong>About author »</strong></a>
+    <a href="https://homing.so/about"><strong>About author »</strong></a>
     <br/>
     <br/>
     <a href="#Features">Features</a>
