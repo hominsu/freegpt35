@@ -60,7 +60,7 @@ curl -X POST "http://localhost:3000/v1/chat/completions" \
 
 ### Nginx Template
 
-Note that the token refresh api is exposed (`/api/refersh`), so it is necessary to use nginx to "hide" it. Here is an nginx conf template that you can refer to.
+Note that the token refresh api is exposed (`/api/refersh`), so it is necessary to use nginx to "hide" it. Here is an nginx conf template that you can refer to. More info about NGINX Docker setup you can check this post: [优雅地在 Docker 中使用 NGINX](https://homing.so/blog/nginx/how-to-use-nginx-elegantly-with-docker)
 
 ```nginx
 upstream freegpt35 {
