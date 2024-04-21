@@ -120,7 +120,8 @@ You can specify your platform (`amd64 | arm64`), `NEXT_PUBLIC_CRON` is use to sp
 ```bash
 NEXT_PUBLIC_BASE_URL="https://chat.openai.com" \
 NEXT_PUBLIC_API_URL="/backend-anon/conversation" \
-NEXT_PUBLIC_CRON="0 */10 * * * *" \
+NEXT_PUBLIC_CRON="0 */30 * * * *" \
+NEXT_PUBLIC_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" \
 NEXT_PUBLIC_PROXY_ENABLE=true \
 NEXT_PUBLIC_PROXY_PROTOCOL=http \
 NEXT_PUBLIC_PROXY_HOST="127.0.0.1" \
