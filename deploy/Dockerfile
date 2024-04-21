@@ -24,6 +24,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN --mount=type=secret,id=NEXT_PUBLIC_BASE_URL \
     --mount=type=secret,id=NEXT_PUBLIC_API_URL \
     --mount=type=secret,id=NEXT_PUBLIC_CRON \
+    --mount=type=secret,id=NEXT_PUBLIC_USER_AGENT \
     --mount=type=secret,id=NEXT_PUBLIC_PROXY_ENABLE \
     --mount=type=secret,id=NEXT_PUBLIC_PROXY_PROTOCOL \
     --mount=type=secret,id=NEXT_PUBLIC_PROXY_HOST \
@@ -34,6 +35,7 @@ RUN --mount=type=secret,id=NEXT_PUBLIC_BASE_URL \
     NEXT_PUBLIC_BASE_URL=$(cat /run/secrets/NEXT_PUBLIC_BASE_URL) \
     NEXT_PUBLIC_API_URL=$(cat /run/secrets/NEXT_PUBLIC_API_URL) \
     NEXT_PUBLIC_CRON=$(cat /run/secrets/NEXT_PUBLIC_CRON) \
+    NEXT_PUBLIC_USER_AGENT=$(cat /run/secrets/NEXT_PUBLIC_USER_AGENT) \
     NEXT_PUBLIC_PROXY_ENABLE=$(cat /run/secrets/NEXT_PUBLIC_PROXY_ENABLE) \
     NEXT_PUBLIC_PROXY_PROTOCOL=$(cat /run/secrets/NEXT_PUBLIC_PROXY_PROTOCOL) \
     NEXT_PUBLIC_PROXY_HOST=$(cat /run/secrets/NEXT_PUBLIC_PROXY_HOST) \

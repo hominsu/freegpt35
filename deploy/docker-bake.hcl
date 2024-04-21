@@ -32,6 +32,7 @@ target "freegpt35" {
     "type=env,id=NEXT_PUBLIC_BASE_URL",
     "type=env,id=NEXT_PUBLIC_API_URL",
     "type=env,id=NEXT_PUBLIC_CRON",
+    "type=env,id=NEXT_PUBLIC_USER_AGENT",
     "type=env,id=NEXT_PUBLIC_PROXY_ENABLE",
     "type=env,id=NEXT_PUBLIC_PROXY_PROTOCOL",
     "type=env,id=NEXT_PUBLIC_PROXY_HOST",
