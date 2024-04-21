@@ -51,6 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 async function processStream(req: NextApiRequest, res: NextApiResponse, data: any) {
   let finish_reason: string | null = null
+  let error: string | null = null
   let fullContent = ''
   let completionTokens = 0
   const requestId = GenerateCompletionId('chatcmpl-')
@@ -60,6 +61,11 @@ async function processStream(req: NextApiRequest, res: NextApiResponse, data: an
     if (message.match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{6}$/)) continue
 
     const parsed = JSON.parse(message)
+    if (parsed.error) {
+      error = `Error message from OpenAI: ${parsed.error}`
+      finish_reason = 'stop'
+      break
+    }
     let content = parsed?.message?.content?.parts[0] ?? ''
     let status = parsed?.message?.status ?? ''
 
@@ -127,7 +133,7 @@ async function processStream(req: NextApiRequest, res: NextApiResponse, data: an
         choices: [
           {
             delta: {
-              content: '',
+              content: error ?? '',
             },
             index: 0,
             finish_reason: finish_reason,
@@ -152,7 +158,7 @@ async function processStream(req: NextApiRequest, res: NextApiResponse, data: an
             finish_reason: finish_reason,
             index: 0,
             message: {
-              content: fullContent,
+              content: error ?? fullContent,
               role: 'assistant',
             },
           },
