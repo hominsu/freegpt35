@@ -67,7 +67,7 @@ jobs:
           VERSION=${{ needs.set-matrix.outputs.git_tag }}
           NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}
           NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_CRON=${{ secrets.NEXT_PUBLIC_CRON }}
+          NEXT_PUBLIC_MAX_RETRIES=${{ secrets.NEXT_PUBLIC_MAX_RETRIES }}
           NEXT_PUBLIC_USER_AGENT=${{ secrets.NEXT_PUBLIC_USER_AGENT }}
           NEXT_PUBLIC_PROXY_ENABLE=${{ secrets.NEXT_PUBLIC_PROXY_ENABLE }}
           NEXT_PUBLIC_PROXY_PROTOCOL=${{ secrets.NEXT_PUBLIC_PROXY_PROTOCOL }}
