@@ -1,14 +1,13 @@
 import * as url from 'url'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { encode } from 'gpt-3-encoder'
-import { global } from 'styled-jsx/css'
 
 import { siteConfig } from '@/config/site'
 import axiosInstance from '@/lib/axios'
 import { createBody } from '@/lib/body'
 import { cors, corsMiddleware } from '@/lib/cors'
-import { GlobalsVars } from '@/lib/globals'
 import { ProofTokenGenerator } from '@/lib/proof'
+import { refreshSession } from '@/lib/refresh'
 import {
   GenerateCompletionId,
   handleInvalidInput,
@@ -32,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return
   }
 
-  const session = GlobalsVars.getInstance().session
+  const session = await refreshSession()
   if (!session) {
     handleInvalidSession(res)
     return

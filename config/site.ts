@@ -1,8 +1,10 @@
+import * as process from 'process'
+
 export const siteConfig = {
   server: {
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL || 'https://chat.openai.com',
     apiUrl: process.env.NEXT_PUBLIC_API_URL || '/backend-anon/conversation',
-    cron: process.env.NEXT_PUBLIC_CRON || '0 */10 * * * *',
+    maxRetries: process.env.NEXT_PUBLIC_MAX_RETRIES || 5,
     userAgent:
       process.env.NEXT_PUBLIC_USER_AGENT ||
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',

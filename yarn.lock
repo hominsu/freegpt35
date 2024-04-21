@@ -590,13 +590,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:~3.4.0":
-  version: 3.4.2
-  resolution: "@types/luxon@npm:3.4.2"
-  checksum: 10/fd89566e3026559f2bc4ddcc1e70a2c16161905ed50be9473ec0cfbbbe919165041408c4f6e06c4bcf095445535052e2c099087c76b1b38e368127e618fc968d
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:*, @types/node@npm:^20":
   version: 20.12.7
   resolution: "@types/node@npm:20.12.7"
@@ -1281,16 +1274,6 @@ __metadata:
     object-assign: "npm:^4"
     vary: "npm:^1"
   checksum: 10/66e88e08edee7cbce9d92b4d28a2028c88772a4c73e02f143ed8ca76789f9b59444eed6b1c167139e76fa662998c151322720093ba229f9941365ada5a6fc2c6
-  languageName: node
-  linkType: hard
-
-"cron@npm:^3.1.7":
-  version: 3.1.7
-  resolution: "cron@npm:3.1.7"
-  dependencies:
-    "@types/luxon": "npm:~3.4.0"
-    luxon: "npm:~3.4.0"
-  checksum: 10/54f867b51039aa93fc909aee70461cfff3d253e412686ea19891d6b28a86cb413cdbd969d018613fc890403f1f17045f193628733596ef77eef3f3a93b344878
   languageName: node
   linkType: hard
 
@@ -2091,7 +2074,6 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.6.0"
     axios: "npm:^1.6.8"
     cors: "npm:^2.8.5"
-    cron: "npm:^3.1.7"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.2.1"
     eslint-config-prettier: "npm:^9.1.0"
@@ -2864,13 +2846,6 @@ __metadata:
   dependencies:
     yallist: "npm:^4.0.0"
   checksum: 10/fc1fe2ee205f7c8855fa0f34c1ab0bcf14b6229e35579ec1fd1079f31d6fc8ef8eb6fd17f2f4d99788d7e339f50e047555551ebd5e434dda503696e7c6591825
-  languageName: node
-  linkType: hard
-
-"luxon@npm:~3.4.0":
-  version: 3.4.4
-  resolution: "luxon@npm:3.4.4"
-  checksum: 10/c14164bc338987349075a08e63ea3ff902866735f7f5553a355b27be22667919765ff96fde4d3413d0e9a0edc4ff9e2e74ebcb8f86eae0ce8b14b27330d87d6e
   languageName: node
   linkType: hard
 
