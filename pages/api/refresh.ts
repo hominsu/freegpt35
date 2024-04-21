@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { siteConfig } from '@/config/site'
 import axiosInstance from '@/lib/axios'
 import { cors, corsMiddleware } from '@/lib/cors'
-import { GlobalsVars } from '@/lib/globals'
+import { GlobalsVars, Session } from '@/lib/globals'
 
 interface SessionResponse {
   token: string
@@ -23,11 +23,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     )
     .then((resp) => {
       const globals = GlobalsVars.getInstance()
-      console.log(
-        `System: Successfully refreshed session ID and token. ${globals.token === '' ? "(Now it's ready to process requests)" : ''}`
-      )
-      globals.oaiDeviceId = deviceId
-      globals.token = resp.data.token
+      globals.session = resp.data as Session
+      globals.session.deviceId = deviceId
     })
     .catch((err) => {
       if (err.response) {

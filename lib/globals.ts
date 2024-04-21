@@ -1,9 +1,50 @@
+const hasKey = <T extends object>(obj: T, key: PropertyKey): key is keyof T => key in obj
+
+export type Session = {
+  [key: string]: any
+  deviceId: string
+  persona: string
+  arkose: {
+    required: boolean
+    dx: any
+  }
+  turnstile: {
+    required: boolean
+  }
+  proofofwork: {
+    required: boolean
+    seed: string
+    difficulty: string
+  }
+  token: string
+}
+
 export class GlobalsVars {
   private static _instance: GlobalsVars
-  private _token: string = ''
-  private _oaiDeviceId: string = ''
+  private _session: Session
 
-  private constructor() {}
+  private constructor() {
+    this._session = new Proxy<Session>(
+      {
+        deviceId: '',
+        persona: '',
+        arkose: { required: false, dx: null },
+        turnstile: { required: false },
+        proofofwork: { required: false, seed: '', difficulty: '' },
+        token: '',
+      },
+      {
+        get: (target, key) => (hasKey(target, key) ? target[key] : undefined),
+        set: (target, key, value) => {
+          if (hasKey(target, key)) {
+            target[key] = value
+            return true
+          }
+          return false
+        },
+      }
+    )
+  }
 
   public static getInstance(): GlobalsVars {
     if (!GlobalsVars._instance) {
@@ -12,19 +53,15 @@ export class GlobalsVars {
     return GlobalsVars._instance
   }
 
-  public get token(): string {
-    return this._token
+  public get session(): Session {
+    return this._session
   }
 
-  public set token(val: string) {
-    this._token = val
-  }
-
-  public get oaiDeviceId(): string {
-    return this._oaiDeviceId
-  }
-
-  public set oaiDeviceId(val: string) {
-    this._oaiDeviceId = val
+  public set session(newSession: Partial<Session>) {
+    Object.entries(newSession).forEach(([key, value]) => {
+      if (hasKey(this._session, key)) {
+        this._session[key] = value
+      }
+    })
   }
 }

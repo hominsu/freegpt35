@@ -1,15 +1,18 @@
 import * as url from 'url'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { encode } from 'gpt-3-encoder'
+import { global } from 'styled-jsx/css'
 
 import { siteConfig } from '@/config/site'
 import axiosInstance from '@/lib/axios'
 import { createBody } from '@/lib/body'
 import { cors, corsMiddleware } from '@/lib/cors'
 import { GlobalsVars } from '@/lib/globals'
+import { ProofTokenGenerator } from '@/lib/proof'
 import {
   GenerateCompletionId,
   handleInvalidInput,
+  handleInvalidSession,
   handleMethodNotAllowed,
   setupResponseHeader,
   streamCompletion,
@@ -29,6 +32,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return
   }
 
+  const session = GlobalsVars.getInstance().session
+  if (!session) {
+    handleInvalidSession(res)
+    return
+  }
+
   const body = createBody(messages)
   setupResponseHeader(res, !!req.body.stream)
 
@@ -36,8 +45,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .post(url.resolve(siteConfig.server.baseUrl, siteConfig.server.apiUrl), body, {
       responseType: 'stream',
       headers: {
-        'oai-device-id': GlobalsVars.getInstance().oaiDeviceId,
-        'openai-sentinel-chat-requirements-token': GlobalsVars.getInstance().token,
+        'oai-device-id': session.deviceId,
+        'openai-sentinel-chat-requirements-token': session.token,
+        'openai-sentinel-proof-token': ProofTokenGenerator.generateToken({
+          seed: session.proofofwork.seed,
+          difficulty: session.proofofwork.difficulty,
+          userAgent: siteConfig.server.userAgent,
+        }),
       },
     })
     .then((resp) => {

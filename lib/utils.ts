@@ -9,6 +9,10 @@ export const handleInvalidInput = (res: NextApiResponse) => {
   res.status(400).json({ error: 'Invalid input: messages must be an array.' })
 }
 
+export const handleInvalidSession = (res: NextApiResponse) => {
+  res.status(405).json({ error: 'Error getting a new session, please try again later.' })
+}
+
 export const setupResponseHeader = (res: NextApiResponse, stream: boolean) => {
   const headers = {
     'Content-Type': stream ? 'text/event-stream' : 'application/json',
