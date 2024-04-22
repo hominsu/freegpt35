@@ -54,8 +54,12 @@ curl -X POST "http://localhost:3000/v1/chat/completions" \
      -H "Content-Type: application/json" \
      -d '{
            "model": "gpt-3.5-turbo",
-           "messages": [{"role": "user", "content": "How do I list all files in a directory using Python?"}]
+           "messages": [{"role": "user", "content": "Hello"}],
          }'
+```
+
+```json
+{"id":"chatcmpl-*********","created":9999999999,"model":"gpt-3.5-turbo","object":"chat.completion","choices":[{"finish_reason":"stop","index":0,"message":{"content":"Hi there! How can I assist you today?","role":"assistant"}}],"usage":{"prompt_tokens":1,"completion_tokens":10,"total_tokens":11}}
 ```
 
 ### Nginx Template
@@ -109,6 +113,30 @@ server {
     }
     error_page   500 502 503 504  /50x.html;
 }
+```
+
+### Vercel
+
+If you subscribe to Vercel, you can try this deploy method, otherwise do not waste your time, since with `Hobby` plan your serverless API routes can only be processed for 5 seconds, the route responds with a `FUNCTION_INVOCATION_TIMEOUT` error.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhominsu%2Ffreegpt35)
+
+You can also define your Environment Variables to for some specific cases. e.g. `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_API_URL`, `NEXT_PUBLIC_MAX_RETRIES`, `NEXT_PUBLIC_USER_AGENT`.
+
+Once deployed, you can test with curl again
+
+```bash
+curl -X POST "https://freegpt35.vercel.app/v1/chat/completions" \
+     -H "Authorization: Bearer anything" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "model": "gpt-3.5-turbo",
+           "messages": [{"role": "user", "content": "Hello"}]
+         }'
+```
+
+```json
+{"id":"chatcmpl-**********","created":9999999999,"model":"gpt-3.5-turbo","object":"chat.completion","choices":[{"finish_reason":"stop","index":0,"message":{"content":"Hey there! How's it going?","role":"assistant"}}],"usage":{"prompt_tokens":1,"completion_tokens":8,"total_tokens":9}}
 ```
 
 ## Building
