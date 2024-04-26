@@ -43,7 +43,7 @@ mkdir freegpt35 && cd freegpt35
 curl -O https://raw.githubusercontent.com/hominsu/freegpt35/main/deploy/docker-compose.yml
 ```
 
-Then add the environment if you need, for more details check the following **Customize** part.
+Then add the environment if you need, for more details check the following [**Customize**](https://github.com/hominsu/freegpt35?tab=readme-ov-file#customize) part.
 
 ```
 docker compose up -d
@@ -122,7 +122,7 @@ server {
 
 If you subscribe to Vercel, you can try this deploy method, otherwise do not waste your time, since with `Hobby` plan your serverless API routes can only be processed for 5 seconds, the route responds with a `FUNCTION_INVOCATION_TIMEOUT` error.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhominsu%2Ffreegpt35)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhominsu%2Ffreegpt35&env=NEXT_API_KEY&envDescription=API%20key%20used%20for%20authentication%20to%20access%20the%20API.&envLink=https%3A%2F%2Fgithub.com%2Fhominsu%2Ffreegpt35%3Ftab%3Dreadme-ov-file%23customize)
 
 Once deployed, you can test with curl again
 
