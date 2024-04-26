@@ -22,8 +22,6 @@
     ·
     <a href="#Examples">Examples</a>
     ·
-    <a href="#Building">Building</a>
-    ·
     <a href="#Reference">Reference</a>
     ·
     <a href="#License">License</a>
@@ -43,6 +41,11 @@
 ```bash
 mkdir freegpt35 && cd freegpt35
 curl -O https://raw.githubusercontent.com/hominsu/freegpt35/main/deploy/docker-compose.yml
+```
+
+Then add the environment if you need, for more details check the following **Customize** part.
+
+```
 docker compose up -d
 ```
 
@@ -121,8 +124,6 @@ If you subscribe to Vercel, you can try this deploy method, otherwise do not was
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhominsu%2Ffreegpt35)
 
-You can also define your Environment Variables to for some specific cases. e.g. `NEXT_PUBLIC_BASE_URL`, `NEXT_PUBLIC_API_URL`, `NEXT_PUBLIC_MAX_RETRIES`, `NEXT_PUBLIC_USER_AGENT`.
-
 Once deployed, you can test with curl again
 
 ```bash
@@ -139,26 +140,24 @@ curl -X POST "https://freegpt35.vercel.app/v1/chat/completions" \
 {"id":"chatcmpl-**********","created":9999999999,"model":"gpt-3.5-turbo","object":"chat.completion","choices":[{"finish_reason":"stop","index":0,"message":{"content":"Hey there! How's it going?","role":"assistant"}}],"usage":{"prompt_tokens":1,"completion_tokens":8,"total_tokens":9}}
 ```
 
-## Building
+### Customize
 
-If your country/region can not access ChatGPT, you might need a proxy. In this case, you need to build your own docker image (Next.JS replace the env in build stage).
+You can also define your Environment Variables to for some specific cases.
 
-You can specify your platform (`amd64 | arm64`).
-
-```bash
-NEXT_PUBLIC_BASE_URL="https://chat.openai.com" \
-NEXT_PUBLIC_API_URL="/backend-anon/conversation" \
-NEXT_PUBLIC_MAX_RETRIES="5" \
-NEXT_PUBLIC_USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" \
-NEXT_PUBLIC_PROXY_ENABLE=true \
-NEXT_PUBLIC_PROXY_PROTOCOL=http \
-NEXT_PUBLIC_PROXY_HOST="127.0.0.1" \
-NEXT_PUBLIC_PROXY_PORT="7890" \
-NEXT_PUBLIC_PROXY_AUTH="false" \
-NEXT_PUBLIC_PROXY_USERNAME="" \
-NEXT_PUBLIC_PROXY_PASSWORD="" \
-docker buildx bake --file deploy/docker-bake.hcl --load --set "*.platform=linux/amd64"
-```
+| Environment Variable | Description |
+| :--- | :--- |
+| `NEXT_BASE_URL` | Base URL for the ChatGPT, modified it if you using an mirror site |
+| `NEXT_API_URL` | **DO NOT MODIFIED IT**, unless you really know what you're doing |
+| `NEXT_API_KEY` | API key used for authentication to access the API. |
+| `NEXT_MAX_RETRIES` | Maximum number of retries for API requests in case of failure. |
+| `NEXT_USER_AGENT` | User agent string used in the headers of requests sent from the server. |
+| `NEXT_PROXY_ENABLE` | Enable or disable proxy usage (`true` or `false`). |
+| `NEXT_PROXY_PROTOCOL` | Protocol used by the proxy (e.g., `http`, `https`). |
+| `NEXT_PROXY_HOST` | Hostname or IP address of the proxy server. |
+| `NEXT_PROXY_PORT` | Port number on which the proxy server is listening. |
+| `NEXT_PROXY_AUTH` | Enable or disable proxy authentication (`true` or `false`). |
+| `NEXT_PROXY_USERNAME` | Username for proxy authentication, if authentication is enabled. |
+| `NEXT_PROXY_PASSWORD` | Password for proxy authentication, if authentication is enabled. |
 
 ## Reference
 
