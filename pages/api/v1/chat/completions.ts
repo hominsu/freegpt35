@@ -13,12 +13,21 @@ import {
   handleInvalidInput,
   handleInvalidSession,
   handleMethodNotAllowed,
+  handleUnauthorized,
   setupResponseHeader,
   streamCompletion,
 } from '@/lib/utils'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await corsMiddleware(req, res, cors)
+
+  if (siteConfig.server.apiKey) {
+    const clientApiKey = req.headers.authorization?.split(' ')[1] ?? null
+    if (!clientApiKey || clientApiKey != siteConfig.server.apiKey) {
+      handleUnauthorized(res)
+      return
+    }
+  }
 
   if (req.method !== 'POST') {
     handleMethodNotAllowed(res)

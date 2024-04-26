@@ -1,6 +1,10 @@
 import { getRandomValues } from 'crypto'
 import { NextApiResponse } from 'next'
 
+export const handleUnauthorized = (res: NextApiResponse) => {
+  res.status(401).json({ error: 'Incorrect API key provided' })
+}
+
 export const handleMethodNotAllowed = (res: NextApiResponse) => {
   res.status(405).json({ error: 'Method not allowed' })
 }
