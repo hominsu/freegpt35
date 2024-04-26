@@ -21,29 +21,7 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN --mount=type=secret,id=NEXT_PUBLIC_BASE_URL \
-    --mount=type=secret,id=NEXT_PUBLIC_API_URL \
-    --mount=type=secret,id=NEXT_PUBLIC_MAX_RETRIES \
-    --mount=type=secret,id=NEXT_PUBLIC_USER_AGENT \
-    --mount=type=secret,id=NEXT_PUBLIC_PROXY_ENABLE \
-    --mount=type=secret,id=NEXT_PUBLIC_PROXY_PROTOCOL \
-    --mount=type=secret,id=NEXT_PUBLIC_PROXY_HOST \
-    --mount=type=secret,id=NEXT_PUBLIC_PROXY_PORT \
-    --mount=type=secret,id=NEXT_PUBLIC_PROXY_AUTH \
-    --mount=type=secret,id=NEXT_PUBLIC_PROXY_USERNAME \
-    --mount=type=secret,id=NEXT_PUBLIC_PROXY_PASSWORD \
-    NEXT_PUBLIC_BASE_URL=$(cat /run/secrets/NEXT_PUBLIC_BASE_URL) \
-    NEXT_PUBLIC_API_URL=$(cat /run/secrets/NEXT_PUBLIC_API_URL) \
-    NEXT_PUBLIC_MAX_RETRIES=$(cat /run/secrets/NEXT_PUBLIC_MAX_RETRIES) \
-    NEXT_PUBLIC_USER_AGENT=$(cat /run/secrets/NEXT_PUBLIC_USER_AGENT) \
-    NEXT_PUBLIC_PROXY_ENABLE=$(cat /run/secrets/NEXT_PUBLIC_PROXY_ENABLE) \
-    NEXT_PUBLIC_PROXY_PROTOCOL=$(cat /run/secrets/NEXT_PUBLIC_PROXY_PROTOCOL) \
-    NEXT_PUBLIC_PROXY_HOST=$(cat /run/secrets/NEXT_PUBLIC_PROXY_HOST) \
-    NEXT_PUBLIC_PROXY_PORT=$(cat /run/secrets/NEXT_PUBLIC_PROXY_PORT) \
-    NEXT_PUBLIC_PROXY_AUTH=$(cat /run/secrets/NEXT_PUBLIC_PROXY_AUTH) \
-    NEXT_PUBLIC_PROXY_USERNAME=$(cat /run/secrets/NEXT_PUBLIC_PROXY_USERNAME) \
-    NEXT_PUBLIC_PROXY_PASSWORD=$(cat /run/secrets/NEXT_PUBLIC_PROXY_PASSWORD) \
-    yarn build
+RUN yarn build
 
 
 # Production image, copy all the files and run next

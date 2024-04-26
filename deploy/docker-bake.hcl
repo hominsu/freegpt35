@@ -28,19 +28,6 @@ target "freegpt35" {
     AUTHOR_EMAIL      = "${AUTHOR_EMAIL}"
     VERSION           = "$(VERSION)"
   }
-  secret = [
-    "type=env,id=NEXT_PUBLIC_BASE_URL",
-    "type=env,id=NEXT_PUBLIC_API_URL",
-    "type=env,id=NEXT_PUBLIC_MAX_RETRIES",
-    "type=env,id=NEXT_PUBLIC_USER_AGENT",
-    "type=env,id=NEXT_PUBLIC_PROXY_ENABLE",
-    "type=env,id=NEXT_PUBLIC_PROXY_PROTOCOL",
-    "type=env,id=NEXT_PUBLIC_PROXY_HOST",
-    "type=env,id=NEXT_PUBLIC_PROXY_PORT",
-    "type=env,id=NEXT_PUBLIC_PROXY_AUTH",
-    "type=env,id=NEXT_PUBLIC_PROXY_USERNAME",
-    "type=env,id=NEXT_PUBLIC_PROXY_PASSWORD",
-  ]
   tags = [
     notequal("", VERSION) ? "${REPO}/freegpt35:${VERSION}" : "",
     "${REPO}/freegpt35:latest",
