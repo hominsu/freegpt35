@@ -5,6 +5,11 @@ services:
     restart: always
     environment:
       TZ: "Asia/Shanghai"
+      # NEXT_API_KEY: "your key"
+      # NEXT_PROXY_ENABLE: true
+      # NEXT_PROXY_PROTOCOL: "http"
+      # NEXT_PROXY_HOST: "127.0.0.1"
+      # NEXT_PROXY_PORT: 7890
     ports:
       - "3000:3000"
     networks:
