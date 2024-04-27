@@ -1,6 +1,8 @@
 import { createHash, randomInt } from 'crypto'
+import * as process from 'process'
+import { format, toZonedTime } from 'date-fns-tz'
 
-type ProofTokenConfig = {
+type ProofOfWork = {
   seed: string
   difficulty: string
   userAgent: string
@@ -12,7 +14,7 @@ export class ProofTokenGenerator {
   private static readonly HASH_ATTEMPTS = 100000
   private static readonly BASE64_PREFIX = 'gAAAAAB'
 
-  public static generateToken({ seed, difficulty, userAgent }: ProofTokenConfig): string {
+  public static generateToken({ seed, difficulty, userAgent }: ProofOfWork): string {
     const core = this.getRandomElement(this.CORE_COUNTS)
     const screen = this.getRandomElement(this.SCREEN_RESOLUTIONS)
     const timestamp = this.getFormattedTimestamp()
@@ -38,8 +40,10 @@ export class ProofTokenGenerator {
   }
 
   private static getFormattedTimestamp(): string {
-    const now = new Date(Date.now() - 8 * 3600 * 1000)
-    return now.toUTCString().replace('GMT', 'GMT-0500 (Eastern Time)')
+    const timeZone = process.env.TZ || Intl.DateTimeFormat().resolvedOptions().timeZone
+    const zonedDate = toZonedTime(new Date(), timeZone)
+    const pattern = "EEE MMM d yyyy HH:mm:ss 'GMT'xx (zzzz)"
+    return format(zonedDate, pattern, { timeZone })
   }
 
   private static generateHash(data: string): string {
