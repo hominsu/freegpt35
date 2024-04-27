@@ -30,9 +30,9 @@
 
 ## Features
 
-- **Streaming API**. freegpt35 allow the response sent back incrementally in chunks.
+- **Streaming API**. freegpt35 allows the response sent back incrementally in chunks.
 - **Easy Deploy**. Containerized, starts in seconds using docker compose.
-- **Login free**. Do not need to worry about the details of authorization, use in a glance.
+- **Login free**. Do not need to worry about the details of authorization, use at a glance.
 
 ## Examples
 
@@ -49,7 +49,7 @@ Then add the environment if you need, for more details check the following [**Cu
 docker compose up -d
 ```
 
-Once deployed, use following command to confirm that everything working.
+Once deployed, use the following command to confirm that everything is working well.
 
 ```bash
 curl -X POST "http://localhost:3000/v1/chat/completions" \
@@ -67,7 +67,7 @@ curl -X POST "http://localhost:3000/v1/chat/completions" \
 
 ### Nginx Template
 
-Here is an nginx conf template that you can refer to. More info about NGINX Docker setup you can check this post: [优雅地在 Docker 中使用 NGINX](https://homing.so/blog/nginx/how-to-use-nginx-elegantly-with-docker)
+Here is an Nginx conf template that you can refer to. For more info about NGINX Docker setup you can check this post: [优雅地在 Docker 中使用 NGINX](https://homing.so/blog/nginx/how-to-use-nginx-elegantly-with-docker)
 
 ```nginx
 upstream freegpt35 {
@@ -120,7 +120,7 @@ server {
 
 ### Vercel
 
-If you subscribe to Vercel, you can try this deploy method, otherwise do not waste your time, since with `Hobby` plan your serverless API routes can only be processed for 5 seconds, the route responds with a `FUNCTION_INVOCATION_TIMEOUT` error.
+If you subscribe to Vercel, you can try this deploy method, otherwise do not waste your time, since with `Hobby` plan your serverless API routes can only be processed for 5 seconds, and the route responds with a `FUNCTION_INVOCATION_TIMEOUT` error.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhominsu%2Ffreegpt35&env=NEXT_API_KEY&envDescription=API%20key%20used%20for%20authentication%20to%20access%20the%20API.&envLink=https%3A%2F%2Fgithub.com%2Fhominsu%2Ffreegpt35%3Ftab%3Dreadme-ov-file%23customize)
 
@@ -146,12 +146,12 @@ You can also define your Environment Variables to for some specific cases.
 
 | Environment Variable | Description                                                             |
 |:---------------------|:------------------------------------------------------------------------|
-| `NEXT_BASE_URL`      | Base URL for the ChatGPT, modified it if you using an mirror site       |
+| `NEXT_BASE_URL`      | Base URL for the ChatGPT, modified it if you using a mirror site        |
 | `NEXT_API_URL`       | **DO NOT MODIFIED IT**, unless you really know what you're doing        |
 | `NEXT_API_KEY`       | API key used for authentication to access the API.                      |
 | `NEXT_MAX_RETRIES`   | Maximum number of retries for API requests in case of failure.          |
 | `NEXT_USER_AGENT`    | User agent string used in the headers of requests sent from the server. |
-| `NEXT_PROXY`         | Enable http(s) proxy `http://127.0.0.1:7890`.                           |
+| `NEXT_PROXY`         | Enable http(s) proxy e.g. `http://127.0.0.1:7890`.                      |
 
 ## Reference
 
