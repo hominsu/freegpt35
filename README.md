@@ -53,7 +53,7 @@ Once deployed, use following command to confirm that everything working.
 
 ```bash
 curl -X POST "http://localhost:3000/v1/chat/completions" \
-     -H "Authorization: Bearer anything" \
+     -H "Authorization: Bearer anything_or_your_key" \
      -H "Content-Type: application/json" \
      -d '{
            "model": "gpt-3.5-turbo",
@@ -128,7 +128,7 @@ Once deployed, you can test with curl again
 
 ```bash
 curl -X POST "https://freegpt35.vercel.app/v1/chat/completions" \
-     -H "Authorization: Bearer anything" \
+     -H "Authorization: Bearer anything_or_your_key" \
      -H "Content-Type: application/json" \
      -d '{
            "model": "gpt-3.5-turbo",
@@ -144,20 +144,20 @@ curl -X POST "https://freegpt35.vercel.app/v1/chat/completions" \
 
 You can also define your Environment Variables to for some specific cases.
 
-| Environment Variable | Description |
-| :--- | :--- |
-| `NEXT_BASE_URL` | Base URL for the ChatGPT, modified it if you using an mirror site |
-| `NEXT_API_URL` | **DO NOT MODIFIED IT**, unless you really know what you're doing |
-| `NEXT_API_KEY` | API key used for authentication to access the API. |
-| `NEXT_MAX_RETRIES` | Maximum number of retries for API requests in case of failure. |
-| `NEXT_USER_AGENT` | User agent string used in the headers of requests sent from the server. |
-| `NEXT_PROXY_ENABLE` | Enable or disable proxy usage (`true` or `false`). |
-| `NEXT_PROXY_PROTOCOL` | Protocol used by the proxy (e.g., `http`, `https`). |
-| `NEXT_PROXY_HOST` | Hostname or IP address of the proxy server. |
-| `NEXT_PROXY_PORT` | Port number on which the proxy server is listening. |
-| `NEXT_PROXY_AUTH` | Enable or disable proxy authentication (`true` or `false`). |
-| `NEXT_PROXY_USERNAME` | Username for proxy authentication, if authentication is enabled. |
-| `NEXT_PROXY_PASSWORD` | Password for proxy authentication, if authentication is enabled. |
+| Environment Variable  | Description                                                             |
+|:----------------------|:------------------------------------------------------------------------|
+| `NEXT_BASE_URL`       | Base URL for the ChatGPT, modified it if you using an mirror site       |
+| `NEXT_API_URL`        | **DO NOT MODIFIED IT**, unless you really know what you're doing        |
+| `NEXT_API_KEY`        | API key used for authentication to access the API.                      |
+| `NEXT_MAX_RETRIES`    | Maximum number of retries for API requests in case of failure.          |
+| `NEXT_USER_AGENT`     | User agent string used in the headers of requests sent from the server. |
+| `NEXT_PROXY_ENABLE`   | Enable or disable proxy usage (`true` or `false`).                      |
+| `NEXT_PROXY_PROTOCOL` | Protocol used by the proxy (e.g., `http`, `https`).                     |
+| `NEXT_PROXY_HOST`     | Hostname or IP address of the proxy server.                             |
+| `NEXT_PROXY_PORT`     | Port number on which the proxy server is listening.                     |
+| `NEXT_PROXY_AUTH`     | Enable or disable proxy authentication (`true` or `false`).             |
+| `NEXT_PROXY_USERNAME` | Username for proxy authentication, if authentication is enabled.        |
+| `NEXT_PROXY_PASSWORD` | Password for proxy authentication, if authentication is enabled.        |
 
 ## Reference
 
