@@ -144,14 +144,14 @@ curl -X POST "https://freegpt35.vercel.app/v1/chat/completions" \
 
 You can also define your Environment Variables to for some specific cases.
 
-| Environment Variable | Description                                                             |
-|:---------------------|:------------------------------------------------------------------------|
-| `NEXT_BASE_URL`      | Base URL for the ChatGPT, modified it if you using a mirror site        |
-| `NEXT_API_URL`       | **DO NOT MODIFIED IT**, unless you really know what you're doing        |
-| `NEXT_API_KEY`       | API key used for authentication to access the API.                      |
-| `NEXT_MAX_RETRIES`   | Maximum number of retries for API requests in case of failure.          |
-| `NEXT_USER_AGENT`    | User agent string used in the headers of requests sent from the server. |
-| `NEXT_PROXY`         | Enable http(s) proxy e.g. `http://127.0.0.1:7890`.                      |
+| Environment Variable | Description                                                                                                                                                                                    |
+|:---------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `NEXT_BASE_URL`      | Base URL for the ChatGPT, modified it if you using a mirror site                                                                                                                               |
+| `NEXT_API_URL`       | **DO NOT MODIFIED IT**, unless you really know what you're doing                                                                                                                               |
+| `NEXT_API_KEY`       | API key used for authentication to access the API.                                                                                                                                             |
+| `NEXT_MAX_RETRIES`   | Maximum number of retries for API requests in case of failure.                                                                                                                                 |
+| `NEXT_USER_AGENT`    | User agent string used in the headers of requests sent from the server.                                                                                                                        |
+| `NEXT_PROXY`         | Enable http(s) proxy e.g. `http://127.0.0.1:7890`. If multiple proxies are needed, separate each proxy with `,` e.g. `https://user:password@proxy-1:10000,https://user:password@proxy-2:10001` |
 
 ## Reference
 
