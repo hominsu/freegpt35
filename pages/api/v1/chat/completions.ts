@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { encode } from 'gpt-3-encoder'
 
 import { siteConfig } from '@/config/site'
-import axiosInstance from '@/lib/axios'
+import axiosInstanceIterator from '@/lib/axios'
 import { createBody } from '@/lib/body'
 import { cors, corsMiddleware } from '@/lib/cors'
 import { ProofTokenGenerator } from '@/lib/proof'
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return
   }
 
-  const session = await refreshSession()
+  const { axiosInstance, session } = await refreshSession(axiosInstanceIterator)
   if (!session) {
     handleInvalidSession(res)
     return

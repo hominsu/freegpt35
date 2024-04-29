@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto'
+import { AxiosInstance } from 'axios'
 
 import { siteConfig } from '@/config/site'
-import axiosInstance from '@/lib/axios'
 
 export type Session = {
   deviceId: string
@@ -25,10 +25,19 @@ interface SessionResponse {
   token: string
 }
 
+export type SessionWithInstance = {
+  axiosInstance: AxiosInstance
+  session: Session | null
+}
+
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export async function refreshSession(retries: number = 0): Promise<Session | null> {
+export async function refreshSession(
+  iterator: Generator<AxiosInstance, never, undefined>,
+  retries: number = 0
+): Promise<SessionWithInstance> {
   const deviceId = randomUUID()
+  const axiosInstance = iterator.next().value
   return axiosInstance
     .post<SessionResponse>(
       `${siteConfig.server.baseUrl}/backend-anon/sentinel/chat-requirements`,
@@ -37,9 +46,12 @@ export async function refreshSession(retries: number = 0): Promise<Session | nul
     )
     .then((resp) => {
       return {
-        ...resp.data,
-        deviceId,
-      } as Session
+        axiosInstance,
+        session: {
+          ...resp.data,
+          deviceId,
+        } as Session,
+      }
     })
     .catch(async (err) => {
       if (err.response) {
@@ -49,7 +61,9 @@ export async function refreshSession(retries: number = 0): Promise<Session | nul
       } else {
         console.error(`Error refreshing session ID and token: ${err}`)
       }
-      await wait(500)
-      return retries < Number(siteConfig.server.maxRetries) ? refreshSession(retries + 1) : null
+      await wait(250)
+      return retries < Number(siteConfig.server.maxRetries)
+        ? refreshSession(iterator, retries + 1)
+        : { axiosInstance, session: null }
     })
 }
