@@ -16,9 +16,12 @@
     "baseUrl": ".",
     "incremental": true,
     "paths": {
+      "@/components/*": ["components/*"],
       "@/config/*": ["config/*"],
+      "@/hooks/*": ["hooks/*"],
       "@/lib/*": ["lib/*"],
-      "@/pages/*": ["pages/*"]
+      "@/pages/*": ["pages/*"],
+      "@/styles/*": ["styles/*"]
     },
     "plugins": [
       {

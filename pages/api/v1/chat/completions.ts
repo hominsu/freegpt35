@@ -3,11 +3,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { encode } from 'gpt-3-encoder'
 
 import { siteConfig } from '@/config/site'
-import axiosInstanceIterator from '@/lib/axios'
-import { createBody } from '@/lib/body'
-import { cors, corsMiddleware } from '@/lib/cors'
-import { ProofTokenGenerator } from '@/lib/proof'
-import { refreshSession } from '@/lib/refresh'
+import axiosInstanceIterator from '@/lib/api/axios'
+import { createBody } from '@/lib/api/body'
+import { cors, corsMiddleware } from '@/lib/api/cors'
+import { ProofTokenGenerator } from '@/lib/api/proof'
+import { refreshSession } from '@/lib/api/refresh'
 import {
   GenerateCompletionId,
   handleInvalidInput,
@@ -16,7 +16,7 @@ import {
   handleUnauthorized,
   setupResponseHeader,
   streamCompletion,
-} from '@/lib/utils'
+} from '@/lib/api/utils'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   await corsMiddleware(req, res, cors)

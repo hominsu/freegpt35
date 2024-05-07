@@ -1,6 +1,14 @@
 import * as process from 'process'
 
 export const siteConfig = {
+  name: 'freegpt35',
+  url: process.env.NEXT_PUBLIC_URL || 'http://127.0.0.1',
+  description: 'Unlimited free GPT-3.5 turbo API service.',
+  links: {
+    author: 'https://homing.so/about',
+    twitter: 'https://twitter.com/is_homingso',
+    github: 'https://github.com/hominsu/freegpt35',
+  },
   server: {
     baseUrl: process.env.NEXT_BASE_URL || 'https://chat.openai.com',
     apiUrl: process.env.NEXT_API_URL || '/backend-anon/conversation',
